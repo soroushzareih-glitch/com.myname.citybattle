@@ -14,6 +14,15 @@ jobs:
       - run: npx cap init CityBattle com.myname.citybattle --web-dir=www
       - run: npx cap add android
       - run: npx cap sync android
+      - run: |
+          cat >> android/app/build.gradle <<'EOF'
+          dependencies {
+              constraints {
+                  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22")
+                  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22")
+              }
+          }
+          EOF
       - run: cd android && ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
